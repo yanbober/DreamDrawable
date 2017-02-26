@@ -11,7 +11,7 @@ import android.view.View;
  */
 
 public class CustomerView extends View {
-    private RoundDrawable mDrawable;
+    private ReflectionDrawable mDrawable;
 
     public CustomerView(Context context) {
         this(context, null);
@@ -23,8 +23,7 @@ public class CustomerView extends View {
     }
 
     private void init() {
-        mDrawable = new RoundDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.timg));
-        mDrawable.setCornerRadius(250);
+        mDrawable = new ReflectionDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.timg));
     }
 
     @Override
