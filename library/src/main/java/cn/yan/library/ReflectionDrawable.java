@@ -1,3 +1,26 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) 2017 yanbo
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package cn.yan.library;
 
 import android.graphics.Bitmap;
@@ -13,7 +36,9 @@ import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 
 /**
- * 底部反射倒影 Drawable。
+ * 带底部反射倒影的Drawable。
+ * 注意：content自动缩放适配倒影height以外的高度。
+ * 通过setReflectionHeight(int height)方法设置底部倒影的高度。
  */
 
 public class ReflectionDrawable extends Drawable {
@@ -21,6 +46,7 @@ public class ReflectionDrawable extends Drawable {
     private Bitmap mReflectBitmap;
 
     private Paint mPaint;
+    private int mReflectionHeight;
 
     public ReflectionDrawable(Bitmap bitmap) {
         mSrcBitmap = bitmap;
@@ -32,17 +58,24 @@ public class ReflectionDrawable extends Drawable {
         mReflectBitmap = Bitmap.createBitmap(mSrcBitmap, 0, 0,
                                             mSrcBitmap.getWidth(), mSrcBitmap.getHeight(),
                                             matrix, true);
+
+        setReflectionHeight(200);
+    }
+
+    public void setReflectionHeight(int height) {
+        mReflectionHeight = height;
+        invalidateSelf();
     }
 
     @Override
     public void draw(Canvas canvas) {
         Rect rect = getBounds();
-        Rect rectSrc = new Rect(rect.left, rect.top, rect.right, rect.bottom - 200);
-        Rect rectReflect = new Rect(rect.left, rect.bottom - 200, rect.right, rect.bottom);
+        Rect rectSrc = new Rect(rect.left, rect.top, rect.right, rect.bottom - mReflectionHeight);
+        Rect rectReflect = new Rect(rect.left, rect.bottom - mReflectionHeight, rect.right, rect.bottom);
 
         canvas.drawBitmap(mSrcBitmap, rect, rectSrc, null);
 
-        canvas.drawBitmap(mReflectBitmap, new Rect(0, 0, rectReflect.width(), 200), rectReflect, null);
+        canvas.drawBitmap(mReflectBitmap, new Rect(0, 0, rectReflect.width(), mReflectionHeight), rectReflect, null);
         mPaint.setShader(new LinearGradient(rectReflect.left, rectReflect.top,
                 rectReflect.left, rectReflect.bottom,
                 0x08000000, Color.BLACK,

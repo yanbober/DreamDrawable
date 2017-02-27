@@ -23,40 +23,34 @@
  */
 package cn.yan.library;
 
-import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.util.AttributeSet;
-import android.view.View;
+import android.graphics.ColorFilter;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 
 /**
- * Created by yan on 17-2-26.
+ * 类似腾讯 QQ 手机版 item 头像 Drawable。
+ * 当有一个时显示圆形，当有多个时自动适用，最多支持五个呈五角星形式显示。
  */
 
-public class CustomerView extends View {
-    private ReflectionDrawable mDrawable;
+public class MultiIconDrawable extends Drawable {
+    @Override
+    public void draw(Canvas canvas) {
 
-    public CustomerView(Context context) {
-        this(context, null);
-    }
-
-    public CustomerView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
-    private void init() {
-        mDrawable = new ReflectionDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.timg));
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        mDrawable.setBounds(getLeft(), getTop(), getRight(), getBottom());
+    public void setAlpha(int i) {
+
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        mDrawable.draw(canvas);
+    public void setColorFilter(ColorFilter colorFilter) {
+
+    }
+
+    @Override
+    public int getOpacity() {
+        return PixelFormat.TRANSLUCENT;
     }
 }
