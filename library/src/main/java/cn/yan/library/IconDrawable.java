@@ -153,7 +153,11 @@ public class IconDrawable extends Drawable {
 
     private Rect getContentRect() {
         Rect rect = new Rect();
-        mTextPaint.getTextBounds(mContentText, 0, mContentText.length(), rect);
+        if (!TextUtils.isEmpty(mContentText)) {
+            mTextPaint.getTextBounds(mContentText, 0, mContentText.length(), rect);
+        } else {
+            rect.set(0, 0, mContentBitmap.getWidth(), mContentBitmap.getHeight());
+        }
         return rect;
     }
 }
