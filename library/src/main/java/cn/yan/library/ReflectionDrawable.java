@@ -58,8 +58,6 @@ public class ReflectionDrawable extends Drawable {
         mReflectBitmap = Bitmap.createBitmap(mSrcBitmap, 0, 0,
                                             mSrcBitmap.getWidth(), mSrcBitmap.getHeight(),
                                             matrix, true);
-
-        setReflectionHeight(200);
     }
 
     public void setReflectionHeight(int height) {

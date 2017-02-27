@@ -27,9 +27,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
@@ -42,15 +45,23 @@ public class IconDrawable extends Drawable {
     private Paint mTextPaint;
     private String mContentText;
     private int mFontSize;
+    private int mBgColor = Color.GREEN;
+    private int mTextColor = Color.WHITE;
 
     private Bitmap mContentBitmap;
+
+    private Path mClipPath;
+    private Matrix mMatrix;
 
     public IconDrawable() {
         mTextPaint = new Paint();
         mTextPaint.setAntiAlias(true);
-        mTextPaint.setFakeBoldText(true);
+        mTextPaint.setColor(Color.WHITE);
         mTextPaint.setStyle(Paint.Style.FILL);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
+
+        mClipPath = new Path();
+        mMatrix = new Matrix();
     }
 
     public IconDrawable setTextLabel(String str) {
@@ -67,22 +78,49 @@ public class IconDrawable extends Drawable {
         return this;
     }
 
+    public IconDrawable setTextFontSize(int size) {
+        mFontSize = size;
+        invalidateSelf();
+        return this;
+    }
+
+    public IconDrawable setTextColor(int color) {
+        mTextColor = color;
+        invalidateSelf();
+        return this;
+    }
+
+    public IconDrawable setBackgroundColor(int color) {
+        mBgColor = color;
+        invalidateSelf();
+        return this;
+    }
+
     @Override
     public void draw(Canvas canvas) {
         Rect rect = getBounds();
 
-        int count = canvas.save();
+        int count = canvas.saveLayer(new RectF(rect), null, Canvas.ALL_SAVE_FLAG);
         canvas.translate(rect.left, rect.top);
+        mClipPath.reset();
+        mClipPath.addCircle(rect.width() / 2, rect.height() / 2,
+                            Math.min(rect.width(), rect.height()) / 2, Path.Direction.CCW);
+        canvas.clipPath(mClipPath);
 
         if (mContentBitmap == null && !TextUtils.isEmpty(mContentText)) {
-            canvas.drawColor(Color.GREEN);
-            int fontSize = this.mFontSize < 0 ? (Math.min(rect.width(), rect.height()) / 2) : this.mFontSize;
+            mTextPaint.setColor(mBgColor);
+            canvas.drawRect(rect, mTextPaint);
+            int fontSize = this.mFontSize <= 0 ? (Math.min(rect.width(), rect.height()) / 2) : this.mFontSize;
             mTextPaint.setTextSize(fontSize);
+            mTextPaint.setColor(mTextColor);
             canvas.drawText(mContentText, rect.width() / 2, rect.height() / 2 - ((mTextPaint.descent() + mTextPaint.ascent()) / 2), mTextPaint);
         } else {
+
+            mMatrix.setScale(rect.width() * 1.0f / mContentBitmap.getWidth(),
+                    rect.height() * 1.0f / mContentBitmap.getHeight());
+            canvas.setMatrix(mMatrix);
             canvas.drawBitmap(mContentBitmap, rect, rect, null);
         }
-
         canvas.restoreToCount(count);
     }
 

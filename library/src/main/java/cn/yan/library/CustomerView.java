@@ -34,7 +34,7 @@ import android.view.View;
  */
 
 public class CustomerView extends View {
-    private ReflectionDrawable mDrawable;
+    private IconDrawable mDrawable;
 
     public CustomerView(Context context) {
         this(context, null);
@@ -46,7 +46,10 @@ public class CustomerView extends View {
     }
 
     private void init() {
-        mDrawable = new ReflectionDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.timg));
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
+        mDrawable = new IconDrawable();
+        mDrawable.setTextLabel("晏");
+        mDrawable.setIconLabel(BitmapFactory.decodeResource(getResources(), R.drawable.timg));
     }
 
     @Override
