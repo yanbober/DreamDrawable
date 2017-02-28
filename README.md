@@ -1,10 +1,12 @@
 # DreamDrawable
 
-一个项目玩转 Android 自定义 Drawable，具体原理参见[《》]()，效果如下图所示。
+一个项目玩转 Android 自定义 Drawable，具体原理参见[《Android 应用层开发 Drawable 的一些叨叨絮》](http://blog.csdn.net/yanbober/article/details/56844869)，效果如下图所示。
 
 <div><img src=".art/demo.gif" width="350"></div>
 
 # 说明文档
+
+当前实现了多个 Customer Drawable，依据自己情况使用其一即可，互相无任何依赖。
 
 | 类型 | 定义 | 说明 |
 | ----- | ----- | ----- |
