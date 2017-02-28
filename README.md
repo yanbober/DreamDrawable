@@ -2,7 +2,7 @@
 
 一个项目玩转 Android 自定义 Drawable，具体原理参见[《》]()，效果如下图所示。
 
-<div><img src=".art/demo.png" width="350"></div>
+<div><img src=".art/demo.gif" width="350"></div>
 
 # 说明文档
 
