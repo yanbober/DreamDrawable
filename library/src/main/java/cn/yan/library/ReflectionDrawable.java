@@ -62,9 +62,10 @@ public class ReflectionDrawable extends Drawable {
                                             matrix, true);
     }
 
-    public void setReflectionHeight(@IntRange(from = 0) int height) {
+    public ReflectionDrawable setReflectionHeight(@IntRange(from = 0) int height) {
         mReflectionHeight = height;
         invalidateSelf();
+        return this;
     }
 
     @Override
@@ -73,12 +74,12 @@ public class ReflectionDrawable extends Drawable {
         Rect rectSrc = new Rect(rect.left, rect.top, rect.right, rect.bottom - mReflectionHeight);
         Rect rectReflect = new Rect(rect.left, rect.bottom - mReflectionHeight, rect.right, rect.bottom);
 
-        canvas.drawBitmap(mSrcBitmap, rect, rectSrc, null);
+        canvas.drawBitmap(mSrcBitmap, new Rect(0, 0, mSrcBitmap.getWidth(), mSrcBitmap.getHeight()), rectSrc, null);
 
-        canvas.drawBitmap(mReflectBitmap, new Rect(0, 0, rectReflect.width(), mReflectionHeight), rectReflect, null);
+        canvas.drawBitmap(mReflectBitmap, new Rect(0, 0, mReflectBitmap.getWidth(), mReflectionHeight), rectReflect, null);
         mPaint.setShader(new LinearGradient(rectReflect.left, rectReflect.top,
                 rectReflect.left, rectReflect.bottom,
-                0x08000000, Color.BLACK,
+                Color.TRANSPARENT, Color.BLACK,
                 Shader.TileMode.CLAMP));
         canvas.drawRect(rectReflect, mPaint);
     }

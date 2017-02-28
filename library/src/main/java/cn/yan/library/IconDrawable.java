@@ -34,7 +34,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
 import android.text.TextUtils;
 
 /**
@@ -85,13 +84,13 @@ public class IconDrawable extends Drawable {
         return this;
     }
 
-    public IconDrawable setTextColor(@ColorInt int color) {
+    public IconDrawable setTextColor(int color) {
         mTextColor = color;
         invalidateSelf();
         return this;
     }
 
-    public IconDrawable setBackgroundColor(@ColorInt int color) {
+    public IconDrawable setBackgroundColor(int color) {
         mBgColor = color;
         invalidateSelf();
         return this;
@@ -116,11 +115,12 @@ public class IconDrawable extends Drawable {
             mTextPaint.setColor(mTextColor);
             canvas.drawText(mContentText, rect.width() / 2, rect.height() / 2 - ((mTextPaint.descent() + mTextPaint.ascent()) / 2), mTextPaint);
         } else {
-
             mMatrix.setScale(rect.width() * 1.0f / mContentBitmap.getWidth(),
                     rect.height() * 1.0f / mContentBitmap.getHeight());
-            canvas.setMatrix(mMatrix);
-            canvas.drawBitmap(mContentBitmap, rect, rect, null);
+            Bitmap scaleContentBitmap = Bitmap.createBitmap(mContentBitmap, 0, 0,
+                    mContentBitmap.getWidth(), mContentBitmap.getHeight(),
+                    mMatrix, true);
+            canvas.drawBitmap(scaleContentBitmap, rect, rect, null);
         }
         canvas.restoreToCount(count);
     }

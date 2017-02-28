@@ -25,6 +25,7 @@ package cn.yan.library;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
+import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
@@ -37,7 +38,7 @@ import android.support.annotation.FloatRange;
  * 譬如 miui 桌面 app 更新图标进度。
  */
 public class LauncherIconDrawable extends Drawable {
-    private final Drawable mDrawable;
+    private Drawable mDrawable;
     private float mPercent;
 
     private ColorFilter mDefaultColorFilter;
@@ -67,13 +68,15 @@ public class LauncherIconDrawable extends Drawable {
         return this;
     }
 
-    public void setCurPercent(@FloatRange(from = 0f, to = 1f) float fillPercent) {
-        mPercent = fillPercent;
+    public void setCurPercent(@FloatRange(from = 0f, to = 1f) float curPercent) {
+        mPercent = curPercent;
         invalidateSelf();
     }
 
     @Override
     public void draw(Canvas canvas) {
+        if (mDrawable == null) return;
+
         Rect rect = getBounds();
         int curOffset = (int) (mPercent * rect.height());
         canvas.save();
@@ -92,37 +95,54 @@ public class LauncherIconDrawable extends Drawable {
     @Override
     protected void onBoundsChange(Rect bounds) {
         super.onBoundsChange(bounds);
-        mDrawable.setBounds(getBounds());
+        if (mDrawable != null) {
+            mDrawable.setBounds(getBounds());
+        }
     }
 
     @Override
     public void invalidateSelf() {
         super.invalidateSelf();
-        mDrawable.invalidateSelf();
+        if (mDrawable != null) {
+            mDrawable.invalidateSelf();
+        }
     }
 
     @Override
     public void setAlpha(int alpha) {
-        mDrawable.setAlpha(alpha);
+        if (mDrawable != null) {
+            mDrawable.setAlpha(alpha);
+        }
     }
 
     @Override
     public void setColorFilter(ColorFilter cf) {
-        mDrawable.setColorFilter(cf);
+        if (mDrawable != null) {
+            mDrawable.setColorFilter(cf);
+        }
     }
 
     @Override
     public int getIntrinsicWidth() {
-        return mDrawable.getIntrinsicWidth();
+        if (mDrawable != null) {
+            return mDrawable.getIntrinsicWidth();
+        }
+        return -1;
     }
 
     @Override
     public int getIntrinsicHeight() {
-        return mDrawable.getIntrinsicHeight();
+        if (mDrawable != null) {
+            return mDrawable.getIntrinsicHeight();
+        }
+        return -1;
     }
 
     @Override
     public int getOpacity() {
-        return mDrawable.getOpacity();
+        if (mDrawable != null) {
+            return mDrawable.getOpacity();
+        }
+        return PixelFormat.TRANSLUCENT;
     }
 }

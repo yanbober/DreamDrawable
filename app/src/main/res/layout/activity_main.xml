@@ -1,19 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:padding="10dp"
     tools:context="cn.yan.dreamdrawable.MainActivity">
 
-    <cn.yan.library.CustomerView
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
+    <ImageView
+        android:id="@+id/imageview1"
+        android:layout_width="120dp"
+        android:layout_height="120dp" />
 
     <ImageView
-        android:id="@+id/imageview"
-        android:src="@drawable/timg1"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
-</LinearLayout>
+        android:id="@+id/imageview2"
+        android:layout_toRightOf="@id/imageview1"
+        android:layout_marginLeft="10dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <ImageView
+        android:id="@+id/imageview3"
+        android:layout_toRightOf="@id/imageview2"
+        android:layout_marginLeft="10dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp" />
+
+    <ImageView
+        android:id="@+id/imageview4"
+        android:layout_below="@id/imageview1"
+        android:layout_marginTop="10dp"
+        android:layout_width="120dp"
+        android:layout_height="150dp" />
+
+    <ImageView
+        android:id="@+id/imageview5"
+        android:layout_below="@id/imageview2"
+        android:layout_toRightOf="@id/imageview4"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="120dp"
+        android:layout_height="170dp" />
+
+    <ImageView
+        android:id="@+id/imageview6"
+        android:layout_below="@id/imageview4"
+        android:layout_marginTop="10dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/timg"/>
+
+    <ImageView
+        android:id="@+id/imageview7"
+        android:layout_toRightOf="@id/imageview6"
+        android:layout_below="@id/imageview5"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/timg"/>
+
+    <cn.yan.library.IconView
+        android:id="@+id/imageview8"
+        android:layout_below="@id/imageview6"
+        android:layout_marginTop="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+
+    <cn.yan.library.IconView
+        android:id="@+id/imageview9"
+        android:layout_toRightOf="@id/imageview8"
+        android:layout_below="@id/imageview6"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+
+    <cn.yan.library.IconView
+        android:id="@+id/imageview10"
+        android:layout_toRightOf="@id/imageview9"
+        android:layout_below="@id/imageview6"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+
+    <cn.yan.library.IconView
+        android:id="@+id/imageview11"
+        android:layout_toRightOf="@id/imageview10"
+        android:layout_below="@id/imageview6"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+</RelativeLayout>

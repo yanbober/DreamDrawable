@@ -24,45 +24,47 @@
 package cn.yan.library;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by yan on 17-2-26.
+ * 类似 Flyme 6.0 联系人 Icon 的 Drawable 的 View。
+ * 当设置图片后显示联系人图片，当设置一个字母或者一个汉字时显示字符图。
+ * TODO 该 View 仅仅为了表明自定义 Drawable 结合 View 的一种用法。
  */
 
-public class CustomerView extends View {
-    private LauncherIconDrawable mDrawable;
+public class IconView extends View {
+    private IconDrawable mDrawable;
 
-    public CustomerView(Context context) {
+    public IconView(Context context) {
         this(context, null);
     }
 
-    public CustomerView(Context context, AttributeSet attrs) {
+    public IconView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
+    public IconDrawable getIconDrawable() {
+        return mDrawable;
+    }
+
     private void init() {
         setLayerType(LAYER_TYPE_SOFTWARE, null);
-        mDrawable = new LauncherIconDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.timg1)));
+        mDrawable = new IconDrawable();
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        mDrawable.setBounds(getLeft(), getTop(), getRight(), getBottom());
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mDrawable.setBounds(new Rect(0, 0, w, h));
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         mDrawable.draw(canvas);
     }
 }
