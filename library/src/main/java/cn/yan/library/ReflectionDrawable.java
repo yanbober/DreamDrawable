@@ -34,6 +34,8 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.FloatRange;
+import android.support.annotation.IntRange;
 
 /**
  * 带底部反射倒影的Drawable。
@@ -60,7 +62,7 @@ public class ReflectionDrawable extends Drawable {
                                             matrix, true);
     }
 
-    public void setReflectionHeight(int height) {
+    public void setReflectionHeight(@IntRange(from = 0) int height) {
         mReflectionHeight = height;
         invalidateSelf();
     }

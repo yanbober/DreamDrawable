@@ -24,17 +24,22 @@
 package cn.yan.library;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yan on 17-2-26.
  */
 
 public class CustomerView extends View {
-    private IconDrawable mDrawable;
+    private LauncherIconDrawable mDrawable;
 
     public CustomerView(Context context) {
         this(context, null);
@@ -47,9 +52,7 @@ public class CustomerView extends View {
 
     private void init() {
         setLayerType(LAYER_TYPE_SOFTWARE, null);
-        mDrawable = new IconDrawable();
-        mDrawable.setTextLabel("晏");
-        mDrawable.setIconLabel(BitmapFactory.decodeResource(getResources(), R.drawable.timg));
+        mDrawable = new LauncherIconDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.timg1)));
     }
 
     @Override

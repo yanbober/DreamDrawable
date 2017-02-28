@@ -34,6 +34,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 import android.text.TextUtils;
 
 /**
@@ -84,13 +85,13 @@ public class IconDrawable extends Drawable {
         return this;
     }
 
-    public IconDrawable setTextColor(int color) {
+    public IconDrawable setTextColor(@ColorInt int color) {
         mTextColor = color;
         invalidateSelf();
         return this;
     }
 
-    public IconDrawable setBackgroundColor(int color) {
+    public IconDrawable setBackgroundColor(@ColorInt int color) {
         mBgColor = color;
         invalidateSelf();
         return this;

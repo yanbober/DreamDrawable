@@ -34,6 +34,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.FloatRange;
+
 /**
  * 圆角 Drawable，通过 setCornerRadius(int radius) 方法设置四个圆角半径。
  * 若想成为圆形 Drawable，只用将 radius 值设置为控件宽度的一半即可。
@@ -55,7 +57,7 @@ public class RoundDrawable extends Drawable {
         mMatrix = new Matrix();
     }
 
-    public RoundDrawable setCornerRadius(float radius) {
+    public RoundDrawable setCornerRadius(@FloatRange(from = 0f) float radius) {
         mCornerRadius = radius;
         invalidateSelf();
         return this;
